@@ -1,4 +1,5 @@
 #include <iostream>
+#include     <cmath>
 
 using namespace std;
 
@@ -24,8 +25,20 @@ int main()
     cout << "4-> Dado un disparo ofensivo, generar disparo defensivos que impidan que los cañones defensivo y ofensivo puedan ser destruidos." << endl;
     cin >> opcion;
     switch (opcion) {
-        case 1:
-            cout << "Ingrese la posicion que tiene el canon ofensivo"
+        case 1:{
+            float AngO, Vel1[2]={}, Vel2[2]={}; //Vel1: Velocidad cañon en x,y del enemigo
+            cout << "Ingrese la posicion en x que tiene el canon del enemigo: ";
+            cin >> PosicionO[0];
+            cout << "Ingrese la velocidad que tiene el enemigo: ";
+            cin >> VelO;
+            //Calcular cual sera la posicion del enemigo teniendo en cuenta los tiempos de retraso
+            PosicionO[0]=(VelO*2.5);
+            PosicionD[0]=(VelD*2.5);
+            cout << "Ingrese angulo: ";
+            cin >> AngO;
+            Vel1[0]=VelO*(cos(AngO));
+            d-=PosicionO[0];
+            }
         break;
     }
     return 0;
