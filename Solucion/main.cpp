@@ -26,7 +26,7 @@ int main()
     cin >> opcion;
     switch (opcion) {
         case 1:{
-            float AngO, Vel1[2]={}, Vel2[2]={}; //Vel1: Velocidad canon en x,y del enemigo
+            float AngO, Vel1[2]={}; //Vel1: Velocidad canon en x,y del enemigo
             unsigned int t1;
             cout << "Ingrese la posicion en x que tiene el canon del enemigo: ";
             cin >> PosicionO[0];
@@ -41,6 +41,7 @@ int main()
             d-=PosicionO[0];
             d=(d-(d-PosicionD[0]));
             t1=(d-PosicionO[0])/Vel1[0];
+            Vel1[1]=(VelO*(sin(AngO)))-9.81*t1;
             }
         break;
     }
