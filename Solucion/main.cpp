@@ -3,6 +3,7 @@
 #include <math.h>
 
 int disparo1(float AngO, float PosicionO[2], float PosicionD[2], float RO);
+int disparo2(float AngO, float PosicionO[2], float PosicionD[2], float RO);
 
 using namespace std;
 
@@ -33,13 +34,28 @@ int main()
             int logro, disparos=0;
             cout << "Ingrese el angulo con el que dispara el enemigo: ";
             cin >> AngO;
-            while(disparos!=3){
+            while(disparos!=3 && AngO<90){
                 logro=disparo1(AngO, PosicionO, PosicionD, RO);
                 if (logro==1){
                     disparos++;
                     logro=0;
-                    AngO++;
                 }
+                AngO++;
+            }
+            }
+        break;
+        case 2:{
+            float AngD; //Vel1: Velocidad canon en x,y del enemigo
+            int logro, disparos=0;
+            cout << "Ingrese el angulo con el que dispara: ";
+            cin >> AngD;
+            while(disparos!=3 && AngD<90){
+                logro=disparo2(AngD, PosicionD, PosicionO, RD);
+                if (logro==1){
+                    disparos++;
+                    logro=0;
+                }
+                AngD++;
             }
             }
         break;
@@ -68,6 +84,34 @@ int disparo1(float AngO, float PosicionO[2], float PosicionD[2], float RO){
         if(final) break;
     }
     if (V!=201 || t!=2001){
+        cout << "Para comprometer la integridad del canon el enemigo debe: " << endl;
+        cout << "Disparar con un angulo " << AngO << " grados y una velocidad de " << V << " metros/segundos" << endl;
+        cout << "El cual golpeara el canon en un tiempo de " << t << " segundos." << endl << endl;
+        logro=1;
+    }
+    return logro;
+}
+int disparo2(float AngO, float PosicionO[2], float PosicionD[2], float RO){
+    float V, VelO[2]={0.0,0.0}, PosicionB[2]={0.0, 0.0}, dist;
+    bool final=false;
+    long unsigned int t;
+    int logro=0;
+    for (V=1.0; V<=100; V+=1){
+        //Calculamos velocidad en x e y
+        VelO[0]=(-1)*(V*cos(AngO*(3.1416/180)));
+        VelO[1]=V*sin(AngO*(3.1416/180));
+        for(t=0;t<=1000;t++){
+            PosicionB[0]=(PosicionO[0]+(VelO[0]*t));
+            PosicionB[1]=(PosicionO[1]+(VelO[1]*t)-((0.5)*9.81*(pow(t,2))));
+            dist=sqrt((pow(PosicionB[0],2))+ (pow((PosicionD[1]-PosicionB[1]),2)));
+            if(dist<=RO){
+                final=true;
+                break;
+            }
+        }
+        if(final) break;
+    }
+    if (V!=101 || t!=1001){
         cout << "Para comprometer la integridad del canon el enemigo debe: " << endl;
         cout << "Disparar con un angulo " << AngO << " grados y una velocidad de " << V << " metros/segundos" << endl;
         cout << "El cual golpeara el canon en un tiempo de " << t << " segundos." << endl << endl;
